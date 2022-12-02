@@ -4,5 +4,3 @@
   Contributors:
   Rafał Bartosiewicz
   Kacper Koncki
-
-test
