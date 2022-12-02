@@ -1,5 +1,5 @@
-## KCK_WannabeChess.com
-# Chess game via Hamachi network written in Java
+# KCK_WannabeChess.com
+## Chess game via Hamachi network written in Java
  
   Contributors:
   Rafał Bartosiewicz
