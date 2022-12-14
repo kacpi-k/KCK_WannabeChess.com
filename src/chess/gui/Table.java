@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import jawa.awt.event.ActionEvent;
 public class Table
 {
+    int tab(];
+
+
     private final JFrame gameFrame;
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600,600);
     public Table()
@@ -40,6 +43,17 @@ public class Table
     }
     private class BoardPanel extends JPanel
     {
+        final List<TilePanel> boardTiles;
+
+        BoardPanel()
+        {
+            super(new GridLayout(8,8));
+            this.boardTiles = new ArrayList<>();
+            for(int i = 0; i < BoardUtils.NUM_TILES; i++)
+            {
+
+            }
+        }
 
     }
     private class TilePanel extends JPanel
