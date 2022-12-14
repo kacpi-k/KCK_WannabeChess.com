@@ -2,19 +2,24 @@ package chess.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import jawa.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Table
 {
-    int tab(];
+
 
 
     private final JFrame gameFrame;
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600,600);
+    private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400,350);
+    private final static Dimension TILE_PANEL_DIMENSION = new Dimension (10,10);
     public Table()
     {
         this.gameFrame = new JFrame("Jchess");
-        final JMenuBar tableMenuBar = populateMenuBar();
+        final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         this.gameFrame.setVisible(true);
@@ -35,7 +40,7 @@ public class Table
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.printIn("open up that PGN file!");
+                System.out.println("open up that PGN file!");
             }
         });
         fileMenu.add(openPGN);
@@ -49,15 +54,28 @@ public class Table
         {
             super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
-            for(int i = 0; i < BoardUtils.NUM_TILES; i++)
+            for(int i = 0; i < BoardUtils.NUM_TILES; i++) // Potrzebujemy BoardUtils w package'u board
             {
-
+                final TilePanel tilePanel = new TilePanel();
+                this.boardTiles.add(tilePanel);
+                add(tilePanel);
             }
+            setPreferredSize(BOARD_PANEL_DIMENSION);
+            validate();
         }
 
     }
     private class TilePanel extends JPanel
     {
+        private final int tileId;
 
+        TilePanel(final BoardPanel boardPanel, final int tileId)
+        {
+            super(new GridBagLayout());
+            this.tileId= tileId;
+            setPreferredSize(TILE_PANEL_DIMENSION);
+            assignTileColor();
+            validate();
+        }
     }
 }
