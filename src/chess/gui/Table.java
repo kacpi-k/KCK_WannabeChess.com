@@ -1,5 +1,7 @@
 package chess.gui;
 
+import chess.engine.board.BoardUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
