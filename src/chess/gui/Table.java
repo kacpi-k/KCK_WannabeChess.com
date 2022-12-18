@@ -1,11 +1,16 @@
 package chess.gui;
 
+import chess.engine.board.Board;
 import chess.engine.board.BoardUtils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +55,15 @@ public class Table
             }
         });
         fileMenu.add(openPGN);
+            final JMenuItem exitMenuItem = new JMenuItem("Exit");
+            exitMenuItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+
+                    System.exit(0);
+                }
+            });
+            fileMenu.add(exitMenuItem);
         return fileMenu;
     }
     private class BoardPanel extends JPanel
@@ -60,7 +74,7 @@ public class Table
         {
             super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
-            for(int i = 0; i < BoardUtils.NUM_TILES; i++) // Potrzebujemy BoardUtils w package'u board
+            for(int i = 0; i < BoardUtils.NUM_TILES; i++)
             {
                 final TilePanel tilePanel = new TilePanel(this, i);
                 this.boardTiles.add(tilePanel);
@@ -83,21 +97,34 @@ public class Table
             assignTileColor();
             validate();
         }
+        private void assignTilePieceIcon(final Board board) //Przydzielanie ikony do poszczególnych bierek, zapewne do przerobienia jeżeli chcemy mieć kilka motywów
+        {
+            this.removeAll();
+            if(board.getTile(this.tileId).isTileOccupied())
+            {
+                String pieceIconPath = "";
+                try {
+                    final BufferedImage image = ImageIO.read(new File(pieceIconPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)+
+                            board.getTile(this.tileId).getPiece().toString()+ ".gif"));
+                    add(new JLabel (new ImageIcon(image)))
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
-        private void assignTileColor() //test
+        private void assignTileColor() //przydzielanie polu koloru (jasny/ciemny)
         {
             if(BoardUtils.FIRST_ROW[this.tileId] ||
                 BoardUtils.THIRD_ROW[this.tileId] ||
                 BoardUtils.FIFTH_ROW[this.tileId] ||
-                BoardUtils.SEVENTH_ROW[this.tileId]) {
-                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                BoardUtils.SEVENTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
                 }   else if(BoardUtils.SECOND_ROW[this.tileId] ||
                     BoardUtils.FOURTH_ROW[this.tileId] ||
                     BoardUtils.SIXTH_ROW[this.tileId] ||
-                    BoardUtils.EIGTH_ROW[this.tileId]) {
-                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                    BoardUtils.EIGTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
 
-    }
+                }
 
         }
     }
