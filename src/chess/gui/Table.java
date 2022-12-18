@@ -84,8 +84,20 @@ public class Table
             validate();
         }
 
-        private void assignTileColor()
+        private void assignTileColor() //test
         {
+            if(BoardUtils.FIRST_ROW[this.tileId] ||
+                BoardUtils.THIRD_ROW[this.tileId] ||
+                BoardUtils.FIFTH_ROW[this.tileId] ||
+                BoardUtils.SEVENTH_ROW[this.tileId]) {
+                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                }   else if(BoardUtils.SECOND_ROW[this.tileId] ||
+                    BoardUtils.FOURTH_ROW[this.tileId] ||
+                    BoardUtils.SIXTH_ROW[this.tileId] ||
+                    BoardUtils.EIGTH_ROW[this.tileId]) {
+                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+
+    }
 
         }
     }
