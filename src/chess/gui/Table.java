@@ -106,7 +106,7 @@ public class Table
                 try {
                     final BufferedImage image = ImageIO.read(new File(pieceIconPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)+
                             board.getTile(this.tileId).getPiece().toString()+ ".gif"));
-                    add(new JLabel (new ImageIcon(image)))
+                    add(new JLabel (new ImageIcon(image)));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -122,7 +122,7 @@ public class Table
                 }   else if(BoardUtils.SECOND_ROW[this.tileId] ||
                     BoardUtils.FOURTH_ROW[this.tileId] ||
                     BoardUtils.SIXTH_ROW[this.tileId] ||
-                    BoardUtils.EIGTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                    BoardUtils.EIGHTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
 
                 }
 
