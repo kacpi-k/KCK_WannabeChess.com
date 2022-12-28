@@ -14,7 +14,7 @@ public class BoardUtils {
     public static final boolean[] FIFTH_ROW = initRow(32);
     public static final boolean[] SIXTH_ROW = initRow(40);
     public static final boolean[] SEVENTH_ROW = initRow(48);
-    public static final boolean[] EIGTH_ROW = initRow(56);
+    public static final boolean[] EIGHTH_ROW = initRow(56);
 
 
 

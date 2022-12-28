@@ -187,7 +187,7 @@ public class Table
                 }   else if(BoardUtils.SECOND_ROW[this.tileId] ||
                     BoardUtils.FOURTH_ROW[this.tileId] ||
                     BoardUtils.SIXTH_ROW[this.tileId] ||
-                    BoardUtils.EIGTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                    BoardUtils.EIGHTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
 
                 }
 
