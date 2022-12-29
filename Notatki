@@ -5,3 +5,7 @@ pozatym nie wiem czy nie powinno być na odwrót, w sensie czy pierwszy rząd ni
 jako ósmy
 
 #34 12:18 W klasie MoveStatus musisz ustawić metodę isDone() i jej nadpisania na public
+
+#35 4:51 Klasa MoveTransition trzeba dodać metodę getTransitionBoard
+
+Czy w klasie Tile będzie metoda getTileCoordinate? Bo nie wiem czy ja czegoś nie pominąłem
