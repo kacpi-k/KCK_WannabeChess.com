@@ -1,5 +1,6 @@
 package chess.engine.board;
 
+import static chess.engine.board.Board.*;
 import chess.engine.pieces.Piece;
 
 public abstract class Move {
@@ -28,7 +29,25 @@ public abstract class Move {
 
         @Override
         public Board execute() {
-            return null;
+
+            final Builder builder = new Builder();
+
+            for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                //TODO hashcode and equals for pieces 
+                if(!movedPiece.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+
+            for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+
+            //move the moved pieces!
+            builder.setPiece(null);
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+
+            return builder.build();
         }
 
     }
