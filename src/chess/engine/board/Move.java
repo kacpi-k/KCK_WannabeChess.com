@@ -2,7 +2,7 @@ package chess.engine.board;
 
 import chess.engine.pieces.Piece;
 
-public abstract class Move {
+public abstract class Move{
 
     final Board board;
     final Piece movedPiece;
