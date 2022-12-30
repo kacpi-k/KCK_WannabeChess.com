@@ -4,8 +4,8 @@ W BoardUtils napisane jest Row, ale nie wiem czy nie powinno być Rank(kwestia n
 pozatym nie wiem czy nie powinno być na odwrót, w sensie czy pierwszy rząd nie powinien być numerowany
 jako ósmy
 
-#34 12:18 W klasie MoveStatus musisz ustawić metodę isDone() i jej nadpisania na public
+W klasie MoveStatus musisz ustawić metodę isDone() i jej nadpisania na public //Zrobione
 
-#35 4:51 Klasa MoveTransition trzeba dodać metodę getTransitionBoard
+Klasa MoveTransition trzeba dodać metodę getTransitionBoard //Zrobione
 
-Czy w klasie Tile będzie metoda getTileCoordinate? Bo nie wiem czy ja czegoś nie pominąłem
+Czy w klasie Tile potrzebna metoda getTileCoordinate //Zrobione

@@ -22,6 +22,11 @@ public class Bishop extends Piece {
     }
 
     @Override
+    public Bishop movePiece(final  Move move) {
+        return new Bishop(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
+    }
+
+    @Override
     public Collection<Move> calculateLegalMoves(Board board) {
 
         final List<Move> legalMoves = new ArrayList<>();
