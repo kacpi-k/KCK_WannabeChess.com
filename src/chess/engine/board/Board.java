@@ -167,7 +167,7 @@ public class Board {
 
         Map<Integer, Piece> boardConfig;
         Alliance nextMoveMaker;
-        Pawn enPessantPawn;
+        Pawn enPassantPawn;
 
         public Builder(){
             this.boardConfig = new HashMap<>();
@@ -187,8 +187,8 @@ public class Board {
             return new Board(this);
         }
 
-        public void setEnPessantPawn(Pawn enPessantPawn) {
-            this.enPessantPawn = enPessantPawn;
+        public void setEnPassantPawn(Pawn enPassantPawn) {
+            this.enPassantPawn = enPassantPawn;
         }
     }
 }
