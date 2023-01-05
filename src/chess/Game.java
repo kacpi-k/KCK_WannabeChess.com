@@ -1,4 +1,4 @@
-package chess.engine;
+package chess;
 
 import chess.engine.board.Board;
 

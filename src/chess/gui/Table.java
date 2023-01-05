@@ -211,14 +211,14 @@ public class Table
 
         private void assignTileColor() //przydzielanie polu koloru (jasny/ciemny)
         {
-            if(BoardUtils.FIRST_ROW[this.tileId] ||
-                BoardUtils.THIRD_ROW[this.tileId] ||
-                BoardUtils.FIFTH_ROW[this.tileId] ||
-                BoardUtils.SEVENTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
-                }   else if(BoardUtils.SECOND_ROW[this.tileId] ||
-                    BoardUtils.FOURTH_ROW[this.tileId] ||
-                    BoardUtils.SIXTH_ROW[this.tileId] ||
-                    BoardUtils.EIGHTH_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+            if(BoardUtils.EIGHTH_ROW[this.tileId] ||
+                BoardUtils.SIXTH_ROW[this.tileId] ||
+                BoardUtils.FOURTH_ROW[this.tileId] ||
+                BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
+                    BoardUtils.FIFTH_ROW[this.tileId] ||
+                    BoardUtils.THIRD_ROW[this.tileId] ||
+                    BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
 
                 }
 

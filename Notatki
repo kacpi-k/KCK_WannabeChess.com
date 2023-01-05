@@ -1,8 +1,6 @@
-#32 3:55 - poprawka w klasie BlackPlayer i WhitePlayer, poprawia if'a w 65 linijce
-
 W BoardUtils napisane jest Row, ale nie wiem czy nie powinno być Rank(kwestia nazewnictwa po angielsku),
 pozatym nie wiem czy nie powinno być na odwrót, w sensie czy pierwszy rząd nie powinien być numerowany
-jako ósmy
+jako ósmy //Zrobione
 
 W klasie MoveStatus musisz ustawić metodę isDone() i jej nadpisania na public //Zrobione
 
