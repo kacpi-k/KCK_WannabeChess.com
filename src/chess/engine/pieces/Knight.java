@@ -7,20 +7,23 @@ import chess.engine.board.Move;
 import chess.engine.board.Tile;
 import com.google.common.collect.ImmutableList;
 
-import static chess.engine.board.Move.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static chess.engine.board.Move.AttackMove;
+import static chess.engine.board.Move.MajorMove;
 
 public class Knight extends Piece{
 
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-17, -15, -10, -6, 6, 10, 15, 17};
 
     public Knight(final int piecePosition, final Alliance pieceAlliance) {
-        super(PieceType.KNIGHT, piecePosition, pieceAlliance);
+        super(PieceType.KNIGHT, piecePosition, pieceAlliance, true);
     }
-
+    public Knight(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+        super(PieceType.KNIGHT, piecePosition, pieceAlliance, isFirstMove);
+    }
     @Override
     public Knight movePiece(final Move move) {
         return new Knight(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());

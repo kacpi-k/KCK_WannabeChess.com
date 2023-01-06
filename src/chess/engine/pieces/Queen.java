@@ -7,20 +7,23 @@ import chess.engine.board.Move;
 import chess.engine.board.Tile;
 import com.google.common.collect.ImmutableList;
 
-import static chess.engine.board.Move.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static chess.engine.board.Move.AttackMove;
+import static chess.engine.board.Move.MajorMove;
 
 public class Queen extends Piece {
 
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -8, -7, -1, 1, 7, 8, 9 };
 
     public Queen(final int piecePosition, final Alliance pieceAlliance) {
-        super(PieceType.QUEEN, piecePosition, pieceAlliance);
+        super(PieceType.QUEEN, piecePosition, pieceAlliance, true);
     }
-
+    public Queen(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+        super(PieceType.QUEEN, piecePosition, pieceAlliance, isFirstMove);
+    }
     @Override
     public Queen movePiece(final Move move) {
         return new Queen(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());

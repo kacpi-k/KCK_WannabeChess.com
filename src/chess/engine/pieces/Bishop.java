@@ -7,19 +7,24 @@ import chess.engine.board.Move;
 import chess.engine.board.Tile;
 import com.google.common.collect.ImmutableList;
 
-import static chess.engine.board.Move.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static chess.engine.board.Move.AttackMove;
+import static chess.engine.board.Move.MajorMove;
 
 public class Bishop extends Piece {
 
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -7, 7, 7 };
 
     public Bishop(int piecePosition, final Alliance pieceAlliance) {
-        super(PieceType.BISHOP, piecePosition, pieceAlliance);
+        super(PieceType.BISHOP, piecePosition, pieceAlliance, true);
     }
+    public Bishop(int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+        super(PieceType.BISHOP, piecePosition, pieceAlliance, isFirstMove);
+    }
+
 
     @Override
     public Bishop movePiece(final  Move move) {
