@@ -30,7 +30,7 @@ public class Board {
 
         this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
-        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
+        this.currentPlayer = builder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayer, this.blackPlayer);
 
 
     }
@@ -158,6 +158,8 @@ public class Board {
         builder.setPiece(new Knight(62, Alliance.WHITE));
         builder.setPiece(new Rook(63, Alliance.WHITE));
 
+        builder.setMoveMaker(Alliance.WHITE);
+
         return builder.build();
     }
 
@@ -172,7 +174,7 @@ public class Board {
         Pawn enPassantPawn;
 
         public Builder(){
-            this.boardConfig = new HashMap<>();
+            this.boardConfig = new HashMap<>(32, 1.0f);
         }
 
         public Builder setPiece(final Piece piece) {
@@ -189,8 +191,9 @@ public class Board {
             return new Board(this);
         }
 
-        public void setEnPassantPawn(Pawn enPassantPawn) {
+        public Builder setEnPassantPawn(Pawn enPassantPawn) {
             this.enPassantPawn = enPassantPawn;
+            return this;
         }
     }
 }
