@@ -52,7 +52,7 @@ public class Table
     private final Color darkTileColor = Color.decode("#593E1A");
     public Table()
     {
-        this.gameFrame = new JFrame("Jchess");
+        this.gameFrame = new JFrame("KCK Wannabe Chess.com");
         this.gameFrame.setLayout(new BorderLayout());
         final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
