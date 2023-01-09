@@ -53,7 +53,7 @@ public abstract class Move {
     }
 
     public int getCurrentCoordinate() {
-        return this.getMovedPiece().getPiecePosition();
+        return this.movedPiece.getPiecePosition();
     }
 
     public int getDestinationCoordinate() {

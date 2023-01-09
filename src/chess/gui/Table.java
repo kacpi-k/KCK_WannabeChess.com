@@ -46,7 +46,7 @@ public class Table
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600,600);
     private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400,350);
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension (10,10);
-    private static String defaultPieceImagesPath = "chess_pieces_example";
+    private static String defaultPieceImagesPath = "graphics/pieces/";
 
     private final Color lightTileColor = Color.decode("#FFFACD");
     private final Color darkTileColor = Color.decode("#593E1A");
@@ -67,6 +67,7 @@ public class Table
         this.gameFrame.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
         this.gameFrame.add(this.takenPiecesPanel, BorderLayout.EAST);
+        this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gameFrame.setVisible(true);
     }
     private JMenuBar createTableMenuBar()
@@ -257,12 +258,7 @@ public class Table
                 }
 
                 @Override
-                public void mousePressed(final MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(final MouseEvent e) {
+                public void mouseExited(final MouseEvent e) {
 
                 }
 
@@ -272,7 +268,12 @@ public class Table
                 }
 
                 @Override
-                public void mouseExited(final MouseEvent e) {
+                public void mouseReleased(final MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(final MouseEvent e) {
 
                 }
             });
@@ -282,6 +283,7 @@ public class Table
         public void drawTile(final Board board) {
             assignTileColor();
             assignTilePieceIcon(board);
+            higlightLegals(board);
             validate();
             repaint();
         }
@@ -292,7 +294,7 @@ public class Table
             {
 
                 try {
-                    final BufferedImage image = ImageIO.read(new File(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)+
+                    final BufferedImage image = ImageIO.read(new File(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)+ "" +
                             board.getTile(this.tileId).getPiece().toString()+ ".gif"));
                     add(new JLabel (new ImageIcon(image)));
                 } catch (IOException e) {
@@ -329,7 +331,7 @@ public class Table
                 }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
                     BoardUtils.FIFTH_ROW[this.tileId] ||
                     BoardUtils.THIRD_ROW[this.tileId] ||
-                    BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+                    BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightTileColor : darkTileColor);
 
                 }
 
