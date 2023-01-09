@@ -34,6 +34,7 @@ public abstract class Move {
         result = prime * result + this.destinationCoordinate;
         result = prime * result + this.movedPiece.hashCode();
         result = prime * result + this.movedPiece.getPiecePosition();
+        result = result + (isFirstMove? 1 : 0);
 
         return result;
     }
@@ -48,8 +49,12 @@ public abstract class Move {
         }
         final Move otherMove = (Move) other;
         return getCurrentCoordinate() == otherMove.getCurrentCoordinate() &&
-                getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
+               getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
                getMovedPiece().equals(otherMove.getMovedPiece());
+    }
+
+    public Board getBoard() {
+        return this.board;
     }
 
     public int getCurrentCoordinate() {
@@ -80,19 +85,9 @@ public abstract class Move {
 
         final Builder builder = new Builder();
 
-        for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
-            //TODO hashcode and equals for pieces
-            if(!movedPiece.equals(piece)) {
-                builder.setPiece(piece);
-            }
-        }
-
-        for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
-            builder.setPiece(piece);
-        }
-
-        //move the moved piece!
-        builder.setPiece(this.movedPiece.movePiece(this ));
+        this.board.currentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece)).forEach(builder::setPiece);
+        this.board.currentPlayer().getOpponent().getActivePieces().forEach(builder::setPiece);
+        builder.setPiece(this.movedPiece.movePiece(this));
         builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
 
         return builder.build();
