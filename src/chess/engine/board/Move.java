@@ -107,6 +107,23 @@ public abstract class Move {
             return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
         }
     }
+
+    public static class MajorAttackMove extends AttackMove {
+        public MajorAttackMove (final Board board, final Piece pieceMoved, final int destinationCoordinate, final Piece pieceAttacked) {
+            super(board,pieceMoved, destinationCoordinate, pieceAttacked);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof MajorAttackMove && super.equals(other);
+        }
+
+        @Override
+        public String toString() {
+            return movedPiece.getPieceType().toString() + "x" + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
+        }
+    }
+
     public static class AttackMove extends Move {
 
         final Piece attackedPiece;
@@ -133,10 +150,7 @@ public abstract class Move {
             return super.equals(otherAttackMove) && getAttackedPiece().equals(otherAttackMove.getAttackedPiece());
         }
 
-        @Override
-        public Board execute() {
-            return null;
-        }
+
 
         @Override
         public boolean isAttack() {
@@ -174,6 +188,11 @@ public abstract class Move {
 
         public PawnJump(final Board board, final Piece movedPiece, final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof PawnJump && super.equals(other);
         }
 
         @Override
