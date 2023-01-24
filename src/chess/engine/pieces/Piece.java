@@ -21,7 +21,6 @@ public abstract class Piece {
         this.pieceType = pieceType;
         this.piecePosition = piecePosition;
         this.pieceAlliance = pieceAlliance;
-        //TODO more work here!!!
         this.isFirstMove = isFirstMove;
         this.cashedHashCode = computeHashCode();
     }
@@ -143,7 +142,7 @@ public abstract class Piece {
         };
 
         private final String pieceName;
-        private int pieceValue;
+        private final int pieceValue;
         PieceType(final String pieceName, final int pieceValue) {
             this.pieceValue = pieceValue;
             this.pieceName = pieceName;

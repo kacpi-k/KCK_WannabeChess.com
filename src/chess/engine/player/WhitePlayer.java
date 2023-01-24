@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static chess.engine.board.Move.*;
@@ -38,7 +39,15 @@ public class WhitePlayer extends Player {
     }
 
     @Override
+    public String toString() {
+        return Alliance.WHITE.toString();
+    }
+
+    @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals, final Collection<Move> opponentsLegals) {
+
+
+
         final List<Move> kingCastles = new ArrayList<>();
         if(this.playerKing.isFirstMove() && !this.isInCheck()) {
             //White's king side castle

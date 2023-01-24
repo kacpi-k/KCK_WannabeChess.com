@@ -19,11 +19,13 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
+    private final Pawn enPassantPawn;
 
     private Board(final Builder builder) {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
+        this.enPassantPawn = builder.enPassantPawn;
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
@@ -31,7 +33,6 @@ public class Board {
         this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayer, this.blackPlayer);
-
 
     }
 
@@ -59,6 +60,10 @@ public class Board {
 
     public Player currentPlayer() {
         return this.currentPlayer;
+    }
+
+    public Pawn getEnPassantPawn() {
+        return this.enPassantPawn;
     }
 
     public Collection<Piece> getBlackPieces() {
@@ -124,7 +129,7 @@ public class Board {
         builder.setPiece(new Knight(1, Alliance.BLACK));
         builder.setPiece(new Bishop(2, Alliance.BLACK));
         builder.setPiece(new Queen(3, Alliance.BLACK));
-        builder.setPiece(new King(4, Alliance.BLACK));
+        builder.setPiece(new King(4, Alliance.BLACK, true, true));
         builder.setPiece(new Bishop(5, Alliance.BLACK));
         builder.setPiece(new Knight(6, Alliance.BLACK));
         builder.setPiece(new Rook(7, Alliance.BLACK));
@@ -153,7 +158,7 @@ public class Board {
         builder.setPiece(new Knight(57, Alliance.WHITE));
         builder.setPiece(new Bishop(58, Alliance.WHITE));
         builder.setPiece(new Queen(59, Alliance.WHITE));
-        builder.setPiece(new King(60, Alliance.WHITE));
+        builder.setPiece(new King(60, Alliance.WHITE, true, true));
         builder.setPiece(new Bishop(61, Alliance.WHITE));
         builder.setPiece(new Knight(62, Alliance.WHITE));
         builder.setPiece(new Rook(63, Alliance.WHITE));
