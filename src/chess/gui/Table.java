@@ -69,6 +69,7 @@ public class Table
         this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gameFrame.setVisible(true);
+
     }
     private JMenuBar createTableMenuBar()
     {
@@ -308,6 +309,9 @@ public class Table
                     if(move.getDestinationCoordinate() == this.tileId) {
                         try {
                             add(new JLabel(new ImageIcon(ImageIO.read(new File("misc/green_dot.png")))));
+
+                                //setBackground(Color.darkGray);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
