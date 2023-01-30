@@ -11,20 +11,44 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static chess.engine.board.Move.MajorAttackMove;
+import static chess.engine.board.Move.MajorMove;
+
 public class King extends Piece{
 
-    public final static int[] CANDIDATE_MOVE_COORDINATE = { -9, -8, -7, -1, 1, 7, 8, 9 };
+    private final static int[] CANDIDATE_MOVE_COORDINATE = { -9, -8, -7, -1, 1, 7, 8, 9 };
+    private final boolean isCastled;
+    private final boolean kingSideCastleCapable;
+    private final boolean queenSideCastleCapable;
 
-    public King(final int piecePosition, final Alliance pieceAlliance) {
+    public King(final int piecePosition, final Alliance pieceAlliance, final boolean kingSideCastleCapable, final boolean queenSideCastleCapable) {
         super(PieceType.KING, piecePosition, pieceAlliance,true);
+        this.isCastled = false;
+        this.kingSideCastleCapable = kingSideCastleCapable;
+        this.queenSideCastleCapable = queenSideCastleCapable;
     }
-    public King(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
-        super(PieceType.KING, piecePosition, pieceAlliance,isFirstMove);
+    public King(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove, final boolean isCastled, final boolean kingSideCastleCapable, final boolean queenSideCastleCapable) {
+        super(PieceType.KING, piecePosition, pieceAlliance, isFirstMove);
+        this.isCastled = isCastled;
+        this.kingSideCastleCapable = kingSideCastleCapable;
+        this.queenSideCastleCapable = queenSideCastleCapable;
     }
 
     @Override
     public King movePiece(final Move move) {
-        return new King(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
+        return new King(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance(), false, move.isCastlingMove(), false, false);
+    }
+
+    public boolean isCastled() {
+        return this.isCastled;
+    }
+
+    public boolean isKingSideCastleCapable() {
+        return this.kingSideCastleCapable;
+    }
+
+    public boolean isQueenSideCastleCapable() {
+        return this.queenSideCastleCapable;
     }
 
     @Override
@@ -44,13 +68,13 @@ public class King extends Piece{
 
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
                 if(!candidateDestinationTile.isTileOccupied()) {
-                    legalMoves.add(new Move.MajorMove(board, this, candidateDestinationCoordinate));
+                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 }
                 else {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final  Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                     if(this.pieceAlliance != pieceAlliance) {
-                        legalMoves.add(new Move.AttackMove(board, this, candidateDestinationCoordinate,pieceAtDestination));
+                        legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
                     }
                 }
             }

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static chess.engine.board.Move.AttackMove;
+import static chess.engine.board.Move.MajorAttackMove;
 import static chess.engine.board.Move.MajorMove;
 
 public class Bishop extends Piece {
 
-    private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -7, 7, 7 };
+    private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -7, 7, 9 };
 
     public Bishop(int piecePosition, final Alliance pieceAlliance) {
         super(PieceType.BISHOP, piecePosition, pieceAlliance, true);
@@ -56,7 +56,7 @@ public class Bishop extends Piece {
                         final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                         final  Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                         if(this.pieceAlliance != pieceAlliance) {
-                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate,pieceAtDestination));
+                            legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,pieceAtDestination));
                         }
                     break;
                     }

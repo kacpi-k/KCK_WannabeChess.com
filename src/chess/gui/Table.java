@@ -52,7 +52,7 @@ public class Table
     private final Color darkTileColor = Color.decode("#593E1A");
     public Table()
     {
-        this.gameFrame = new JFrame("Jchess");
+        this.gameFrame = new JFrame("KCK Wannabe Chess.com");
         this.gameFrame.setLayout(new BorderLayout());
         final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
@@ -79,19 +79,19 @@ public class Table
     }
     private JMenu createFileMenu()
     {
-        final JMenu fileMenu = new JMenu ("File");
+        final JMenu fileMenu = new JMenu ("Opcje");
 
-        final JMenuItem openPGN = new JMenuItem ("Load PGN File");
+        final JMenuItem openPGN = new JMenuItem ("Załaduj plik PGN");
         openPGN.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("open up that PGN file!");
+                System.out.println("No załaduj tego PGN'a :)!");
             }
         });
         fileMenu.add(openPGN);
-            final JMenuItem exitMenuItem = new JMenuItem("Exit");
+            final JMenuItem exitMenuItem = new JMenuItem("Zakończ");
             exitMenuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e){
@@ -103,8 +103,8 @@ public class Table
         return fileMenu;
     }
     private JMenu createPreferencesMenu(){
-        final JMenu preferencesMenu =  new JMenu("Preferences");
-        final JMenuItem flipBoardMenuItem = new JMenuItem("Flip Board");
+        final JMenu preferencesMenu =  new JMenu("Preferencje");
+        final JMenuItem flipBoardMenuItem = new JMenuItem("Odwróć szachownice");
         flipBoardMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -114,7 +114,7 @@ public class Table
         });
         preferencesMenu.add(flipBoardMenuItem);
         preferencesMenu.addSeparator();
-        final JCheckBoxMenuItem legalMoveHiglihgterCheckbox = new JCheckBoxMenuItem("Highlight Legal Moves", false);
+        final JCheckBoxMenuItem legalMoveHiglihgterCheckbox = new JCheckBoxMenuItem("Podpowiadaj ruchy", false);
         legalMoveHiglihgterCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

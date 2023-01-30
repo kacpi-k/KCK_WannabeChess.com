@@ -72,6 +72,20 @@ public abstract class Player {
         return !this.isInCheck && !hasEscapeMoves();
     }
 
+    //TODO implement these methods below!!!
+    public boolean isCastled() {
+        return this.playerKing.isCastled();
+    }
+
+    public boolean isKingSideCastleCapable() {
+        return this.playerKing.isKingSideCastleCapable();
+    }
+
+    public boolean isQueenSideCastleCapable() {
+        return this.playerKing.isQueenSideCastleCapable();
+    }
+
+
     protected boolean hasEscapeMoves() {
         for(final Move move : legalMoves) {
             final MoveTransition transition = makeMove(move);
@@ -82,10 +96,6 @@ public abstract class Player {
         return false;
     }
 
-    //TODO implement these methods below!!!
-    public boolean isCastled() {
-        return false;
-    }
 
     public MoveTransition makeMove(final Move move) {
         if(!isMoveLegal(move)) {
@@ -108,4 +118,8 @@ public abstract class Player {
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
     protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentsLegals);
+
+    protected boolean hasCastleOpportunities() {
+        return !this.isInCheck && !this.playerKing.isCastled() && (this.playerKing.isKingSideCastleCapable() || this.playerKing.isQueenSideCastleCapable());
+    }
 }
