@@ -81,7 +81,7 @@ public class TakenPiecesPanel extends JPanel {
                 final BufferedImage image = ImageIO.read(new File("graphics/pieces/" + takenPiece.getPieceAlliance().toString().substring(0,1) + "" + takenPiece.toString()+".gif"));
                 final ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() - 15, icon.getIconWidth() - 15, Image.SCALE_SMOOTH)));
-                this.southPanel.add(imageLabel);
+                this.northPanel.add(imageLabel);
             }catch(final IOException e){
                 e.printStackTrace();
             }

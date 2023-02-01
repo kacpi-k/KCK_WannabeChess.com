@@ -23,8 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static javax.swing.SwingUtilities.isLeftMouseButton;
-import static javax.swing.SwingUtilities.isRightMouseButton;
+import static javax.swing.SwingUtilities.*;
 
 public class Table
 {
@@ -115,15 +114,15 @@ public class Table
         });
         preferencesMenu.add(flipBoardMenuItem);
         preferencesMenu.addSeparator();
-        final JCheckBoxMenuItem legalMoveHiglihgterCheckbox = new JCheckBoxMenuItem("Podpowiadaj ruchy", false);
-        legalMoveHiglihgterCheckbox.addActionListener(new ActionListener() {
+        final JCheckBoxMenuItem legalMoveHiglighterCheckbox = new JCheckBoxMenuItem("Podpowiadaj ruchy", false);
+        legalMoveHiglighterCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                highlightLegalMoves = legalMoveHiglihgterCheckbox.isSelected();
+                highlightLegalMoves = legalMoveHiglighterCheckbox.isSelected();
 
             }
         });
-        preferencesMenu.add(legalMoveHiglihgterCheckbox);
+        preferencesMenu.add(legalMoveHiglighterCheckbox);
         return preferencesMenu;
     }
     public enum BoardDirection {
@@ -238,7 +237,6 @@ public class Table
                             if(transition.getMoveStatus().isDone()){
                                 chessBoard = transition.getTransitionBoard();
                                 moveLog.addMove(move);
-                                //TODO dodanie wykonanego ruchu do dziennika ruchów
                             }
                             sourceTile = null;
                             destinationTile = null;
@@ -284,11 +282,12 @@ public class Table
         public void drawTile(final Board board) {
             assignTileColor();
             assignTilePieceIcon(board);
-            higlightLegals(board);
+            highlightTileBorder(board);
+            highlightLegals(board);
             validate();
             repaint();
         }
-        private void assignTilePieceIcon(final Board board) //Przydzielanie ikony do poszczególnych bierek, zapewne do przerobienia jeżeli chcemy mieć kilka motywów
+        private void assignTilePieceIcon(final Board board) //Przydzielanie ikony do poszczególnych bierek
         {
             this.removeAll();
             if(board.getTile(this.tileId).isTileOccupied())
@@ -303,7 +302,18 @@ public class Table
                 }
             }
         }
-        private void higlightLegals(final Board board) {
+
+        private void highlightTileBorder(final Board board) {
+            if(humanMovedPiece != null &&
+                    humanMovedPiece.getPieceAlliance() == board.currentPlayer().getAlliance() &&
+                    humanMovedPiece.getPiecePosition() == this.tileId) {
+                setBorder(BorderFactory.createLineBorder(Color.green, 2));
+            } else {
+                setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            }
+        }
+
+        private void highlightLegals(final Board board) {
             if(highlightLegalMoves){
                 for(final Move move : pieceLegalMoves(board)) {
                     if(move.getDestinationCoordinate() == this.tileId) {
