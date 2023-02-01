@@ -233,7 +233,8 @@ public class Table
                         sourceTile = null;
                         destinationTile = null;
                         humanMovedPiece = null;
-                    }else if(isLeftMouseButton(e)) {
+                        System.out.println("ppm");
+                    } else if(isLeftMouseButton(e)) {
                         if(sourceTile == null) {
                             sourceTile = chessBoard.getTile(tileId);
                             humanMovedPiece = sourceTile.getPiece();
