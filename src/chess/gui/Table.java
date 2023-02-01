@@ -11,10 +11,8 @@ import com.google.common.collect.Lists;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addComponentListener;
 import static javax.swing.SwingUtilities.*;
 
 public class Table
@@ -42,19 +41,29 @@ public class Table
     private Piece humanMovedPiece;
     private BoardDirection boardDirection;
     private boolean highlightLegalMoves;
-    private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600,600);
-    private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400,350);
-    private final static Dimension TILE_PANEL_DIMENSION = new Dimension (10,10);
+    private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(1200,1060);
+
+    public static Dimension getOuterFrameDimension() {
+        return OUTER_FRAME_DIMENSION;
+    }
+
+    private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(800,800);
+    public static Dimension getBoardPanelDimension() {
+        return BOARD_PANEL_DIMENSION;
+    }
+    private final static Dimension TILE_PANEL_DIMENSION = new Dimension (20,20);
     private static String defaultPieceImagesPath = "graphics/pieces/";
 
     private final Color lightTileColor = Color.decode("#FFFACD");
     private final Color darkTileColor = Color.decode("#593E1A");
     public Table()
     {
-        this.gameFrame = new JFrame("KCK Wannabe Chess.com");
+        this.gameFrame = new JFrame("KCK Mazowiecka Chess");
         this.gameFrame.setLayout(new BorderLayout());
-        final JMenuBar tableMenuBar = createTableMenuBar();
-        this.gameFrame.setJMenuBar(tableMenuBar);
+        //gameFrame.setUndecorated(true);
+        //ameFrame.setShape(new Ellipse2D.Double(100,100, gameFrame.getWidth(),gameFrame.getHeight()));
+        //final JMenuBar tableMenuBar = createTableMenuBar();
+        //this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         this.chessBoard = Board.createStandardBoard();
         this.gameHistoryPanel = new GameHistoryPanel();
@@ -62,11 +71,13 @@ public class Table
         this.boardPanel = new BoardPanel();
         this.moveLog = new MoveLog();
         this.boardDirection = BoardDirection.NORMAL;
-        this.highlightLegalMoves = false;
+        this.highlightLegalMoves = true;
         this.gameFrame.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
         this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.gameFrame.setResizable(false);
+        MainMenu.center(this.gameFrame);
         this.gameFrame.setVisible(true);
 
     }
@@ -114,15 +125,15 @@ public class Table
         });
         preferencesMenu.add(flipBoardMenuItem);
         preferencesMenu.addSeparator();
-        final JCheckBoxMenuItem legalMoveHiglighterCheckbox = new JCheckBoxMenuItem("Podpowiadaj ruchy", false);
-        legalMoveHiglighterCheckbox.addActionListener(new ActionListener() {
+        final JCheckBoxMenuItem legalMoveHighlighterCheckbox = new JCheckBoxMenuItem("Podpowiadaj ruchy", false);
+        legalMoveHighlighterCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                highlightLegalMoves = legalMoveHiglighterCheckbox.isSelected();
+                highlightLegalMoves = legalMoveHighlighterCheckbox.isSelected();
 
             }
         });
-        preferencesMenu.add(legalMoveHiglighterCheckbox);
+        preferencesMenu.add(legalMoveHighlighterCheckbox);
         return preferencesMenu;
     }
     public enum BoardDirection {
@@ -151,12 +162,10 @@ public class Table
         abstract BoardDirection opposite();
 
     }
-    private class BoardPanel extends JPanel
-    {
+    private class BoardPanel extends JPanel {
         final List<TilePanel> boardTiles;
 
-        BoardPanel()
-        {
+        BoardPanel() {
             super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
             for(int i = 0; i < BoardUtils.NUM_TILES; i++)
@@ -179,6 +188,7 @@ public class Table
         }
 
     }
+
     public static class MoveLog {
         private final List<Move> moves;
         MoveLog(){
@@ -203,12 +213,12 @@ public class Table
             return this.moves.remove(move);
         }
     }
+
     private class TilePanel extends JPanel
     {
         private final int tileId;
 
-        TilePanel(final BoardPanel boardPanel, final int tileId)
-        {
+        TilePanel(final BoardPanel boardPanel, final int tileId) {
             super(new GridBagLayout());
             this.tileId= tileId;
             setPreferredSize(TILE_PANEL_DIMENSION);
@@ -223,11 +233,11 @@ public class Table
                         sourceTile = null;
                         destinationTile = null;
                         humanMovedPiece = null;
-                    }else if(isLeftMouseButton(e)){
-                        if(sourceTile == null){
+                    }else if(isLeftMouseButton(e)) {
+                        if(sourceTile == null) {
                             sourceTile = chessBoard.getTile(tileId);
                             humanMovedPiece = sourceTile.getPiece();
-                            if(humanMovedPiece == null){
+                            if(humanMovedPiece == null) {
                                 sourceTile = null;
                             }
                         } else {
@@ -287,15 +297,12 @@ public class Table
             validate();
             repaint();
         }
-        private void assignTilePieceIcon(final Board board) //Przydzielanie ikony do poszczególnych bierek
-        {
+        private void assignTilePieceIcon(final Board board) {   //Przydzielanie ikony do poszczególnych bierek
             this.removeAll();
-            if(board.getTile(this.tileId).isTileOccupied())
-            {
-
+            if(board.getTile(this.tileId).isTileOccupied()) {
                 try {
                     final BufferedImage image = ImageIO.read(new File(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)+ "" +
-                            board.getTile(this.tileId).getPiece().toString()+ ".gif"));
+                            board.getTile(this.tileId).getPiece().toString()+ ".png"));
                     add(new JLabel (new ImageIcon(image)));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -318,9 +325,9 @@ public class Table
                 for(final Move move : pieceLegalMoves(board)) {
                     if(move.getDestinationCoordinate() == this.tileId) {
                         try {
-                            add(new JLabel(new ImageIcon(ImageIO.read(new File("misc/green_dot.png")))));
+                            //add(new JLabel(new ImageIcon(ImageIO.read(new File("misc/green_dot.png")))));
 
-                                //setBackground(Color.darkGray);
+                            setBackground(Color.green);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -329,6 +336,7 @@ public class Table
                 }
             }
         }
+
         private Collection<Move> pieceLegalMoves(final Board board) {
             if(humanMovedPiece != null && humanMovedPiece.getPieceAlliance() == board.currentPlayer().getAlliance()) {
                 return humanMovedPiece.calculateLegalMoves(board);
@@ -336,8 +344,7 @@ public class Table
             return Collections.emptyList();
         }
 
-        private void assignTileColor() //przydzielanie polu koloru (jasny/ciemny)
-        {
+        private void assignTileColor() {    //przydzielanie polu koloru (jasny/ciemny)
             if(BoardUtils.EIGHTH_ROW[this.tileId] ||
                 BoardUtils.SIXTH_ROW[this.tileId] ||
                 BoardUtils.FOURTH_ROW[this.tileId] ||

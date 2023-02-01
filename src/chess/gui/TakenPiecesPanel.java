@@ -20,7 +20,7 @@ public class TakenPiecesPanel extends JPanel {
     private final JPanel northPanel;
     private final JPanel southPanel;
     private static final Color PANEL_COLOR = Color.decode("0xFDF5E6");
-    private static final Dimension TAKEN_PIECES_DIMENSION = new Dimension(40,80);
+    private static final Dimension TAKEN_PIECES_DIMENSION = new Dimension(80,80);
     private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
     public TakenPiecesPanel() {
         super(new BorderLayout());
@@ -48,7 +48,7 @@ public class TakenPiecesPanel extends JPanel {
                 } else if(takenPiece.getPieceAlliance().isBlack()) {
                     blackTakenPieces.add(takenPiece);
                 }else {
-                    throw new RuntimeException("should not reach here !");
+                    throw new RuntimeException("Błąd!");
                 }
             }
 
@@ -72,8 +72,8 @@ public class TakenPiecesPanel extends JPanel {
                 final ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() - 15, icon.getIconWidth() - 15, Image.SCALE_SMOOTH)));
                 this.southPanel.add(imageLabel);
-            }catch(final IOException e){
-
+            }catch(final IOException e) {
+                e.printStackTrace();
             }
         }
         for(final Piece takenPiece : blackTakenPieces) {
@@ -87,5 +87,6 @@ public class TakenPiecesPanel extends JPanel {
             }
         }
         validate();
+        repaint();
     }
 }

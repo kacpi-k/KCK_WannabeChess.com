@@ -1,13 +1,13 @@
 package chess;
 
-import chess.gui.ChessMenu;
+import chess.gui.MainMenu;
 import chess.gui.Table;
 
 public class Game {
     public static void main(String[] args){
 
-        //ChessMenu menu = new ChessMenu();
-        new Table();
+        MainMenu menu = new MainMenu();
+        //new Table();
 
     }
 }
