@@ -295,6 +295,7 @@ public class Table
             assignTilePieceIcon(board);
             highlightTileBorder(board);
             highlightLegals(board);
+            higlightKingIfChecked(board);
             validate();
             repaint();
         }
@@ -307,6 +308,14 @@ public class Table
                     add(new JLabel (new ImageIcon(image)));
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            }
+        }
+
+        private void higlightKingIfChecked(final Board board) {
+            if(board.currentPlayer().isInCheck()) {
+                if(board.currentPlayer().getPlayerKing().getPiecePosition() == this.tileId) {
+                    setBackground(Color.red);
                 }
             }
         }
