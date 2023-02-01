@@ -2,7 +2,6 @@ package chess.engine.board;
 
 import chess.engine.pieces.Pawn;
 import chess.engine.pieces.Piece;
-import chess.engine.pieces.Queen;
 import chess.engine.pieces.Rook;
 
 import static chess.engine.board.Board.Builder;

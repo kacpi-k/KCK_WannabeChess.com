@@ -11,8 +11,10 @@ import com.google.common.collect.Lists;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addComponentListener;
-import static javax.swing.SwingUtilities.*;
+import static javax.swing.SwingUtilities.isLeftMouseButton;
+import static javax.swing.SwingUtilities.isRightMouseButton;
 
 public class Table
 {
@@ -54,8 +56,10 @@ public class Table
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension (20,20);
     private static String defaultPieceImagesPath = "graphics/pieces/";
 
-    private final Color lightTileColor = Color.decode("#FFFACD");
-    private final Color darkTileColor = Color.decode("#593E1A");
+    private final Color lightTileColor = Color.decode("#EEEED2");
+    private final Color darkTileColor = Color.decode("#779556");
+    private final Color lightHiglight = Color.decode("#F6F669");
+    private final Color darkHighlight = Color.decode("#BACA2B");
     public Table()
     {
         this.gameFrame = new JFrame("KCK Mazowiecka Chess");
@@ -315,9 +319,18 @@ public class Table
             if(humanMovedPiece != null &&
                     humanMovedPiece.getPieceAlliance() == board.currentPlayer().getAlliance() &&
                     humanMovedPiece.getPiecePosition() == this.tileId) {
-                setBorder(BorderFactory.createLineBorder(Color.green, 2));
-            } else {
-                setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                if(BoardUtils.EIGHTH_ROW[this.tileId] ||
+                        BoardUtils.SIXTH_ROW[this.tileId] ||
+                        BoardUtils.FOURTH_ROW[this.tileId] ||
+                        BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHiglight : darkHighlight);
+                }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
+                        BoardUtils.FIFTH_ROW[this.tileId] ||
+                        BoardUtils.THIRD_ROW[this.tileId] ||
+                        BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHiglight : darkHighlight);
+
+                }
+
+
             }
         }
 
@@ -325,10 +338,19 @@ public class Table
             if(highlightLegalMoves){
                 for(final Move move : pieceLegalMoves(board)) {
                     if(move.getDestinationCoordinate() == this.tileId) {
-                        try {
+                        try {if(BoardUtils.EIGHTH_ROW[this.tileId] ||
+                                BoardUtils.SIXTH_ROW[this.tileId] ||
+                                BoardUtils.FOURTH_ROW[this.tileId] ||
+                                BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHiglight : darkHighlight);
+                        }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
+                                BoardUtils.FIFTH_ROW[this.tileId] ||
+                                BoardUtils.THIRD_ROW[this.tileId] ||
+                                BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHiglight : darkHighlight);
+
+                        }
                             //add(new JLabel(new ImageIcon(ImageIO.read(new File("misc/green_dot.png")))));
 
-                            setBackground(Color.green);
+                            //setBackground(Color.green);
 
                         } catch (Exception e) {
                             e.printStackTrace();
