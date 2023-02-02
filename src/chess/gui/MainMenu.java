@@ -1,13 +1,12 @@
 package chess.gui;
 
-import chess.engine.board.Board;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class MainMenu {
 
@@ -15,6 +14,7 @@ public class MainMenu {
     public JFrame getMenuFrame() {
         return menuFrame;
     }
+    Border emptyBorder = BorderFactory.createEmptyBorder();
 
     private final JButton startGameButton = new JButton("Utwórz grę");
     public JButton getStartGameButton() {
@@ -29,35 +29,46 @@ public class MainMenu {
         return backButton;
     }
 
-    private final  JButton newGame = new JButton("Nowa Gra");
+    private JButton newGame;
     public JButton getNewGame() {
         return this.newGame;
     }
-    private final  JButton exit = new JButton("Wyjście");
+    private JButton exit = new JButton("Wyjście");
     public JButton getExit() {
         return this.exit;
     }
     private final static Dimension OUTER_FRAME_DIMENSION = Table.getOuterFrameDimension();
     private ImageIcon BackgroundImage;
     private JLabel myLabel;
+    private JLabel Authors;
     public MainMenu() {
 
         this.BackgroundImage = new ImageIcon(this.getClass().getResource("/chesswallpaper.png"));
+        this.Authors = new JLabel(new ImageIcon(getClass().getResource("/Label.png")));
+        this.Authors.setSize(new Dimension(240,110));
         this.myLabel = new JLabel(BackgroundImage);
         this.myLabel.setSize(Table.getOuterFrameDimension());
         this.menuFrame = new JFrame("KCK Mazowiecka Chess");
         this.menuFrame.setLayout(new BorderLayout());
         this.menuFrame.setSize(OUTER_FRAME_DIMENSION);
 
+        this.newGame = new JButton( new ImageIcon(getClass().getResource("/NewGameButton.png")));
+        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 75);
 
-        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 50);
         //this.newGame.setPreferredSize(new Dimension(200,50));
         this.newGame.setBackground(Color.lightGray);
         this.newGame.setFont(new Font("Monaco", Font.BOLD, 16));
         this.newGame.setFocusable(false);
-        this.exit.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 125, (OUTER_FRAME_DIMENSION.height / 2) - 200, 250, 50);
+
+        this.newGame.setBorder(emptyBorder);
+        this.newGame.setOpaque(false);
+        this.exit = new JButton(new ImageIcon(getClass().getResource("/Exit.png")));
+        this.exit.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 125, (OUTER_FRAME_DIMENSION.height / 2) - 200, 250, 75);
+        this.exit.setBackground(Color.RED);
         //this.exit.setPreferredSize(new Dimension(40,50));
         this.exit.setFocusable(false);
+        this.exit.setBorder(emptyBorder);
+        this.exit.setOpaque(false);
         this.startGameButton.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 50);
         this.startGameButton.setFocusable(false);
         this.startGameButton.setVisible(false);
@@ -73,13 +84,14 @@ public class MainMenu {
         this.menuFrame.add(this.startGameButton);
         this.menuFrame.add(this.backButton);
         this.menuFrame.add(this.searchForGameButton);
+        this.menuFrame.add(Authors);
         this.menuFrame.add(myLabel);
         this.menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.menuFrame.setResizable(false);
         center(this.menuFrame);
         this.menuFrame.setVisible(true);
 
-        newGame.addActionListener(new ActionListener() {
+        /*newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -94,7 +106,7 @@ public class MainMenu {
                 getSearchForGameButton().setVisible(true);
 
             }
-        });
+        });*/
 
         exit.addActionListener(new ActionListener() {
             @Override
@@ -131,6 +143,69 @@ public class MainMenu {
                 getNewGame().setVisible(true);
                 getExit().setVisible(true);
 
+            }
+        });
+        newGame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new Table();
+                menuFrame.dispose();
+
+                getNewGame().setVisible(false);
+                getExit().setVisible(false);
+
+                getStartGameButton().setVisible(true);
+                getBackButton().setVisible(true);
+                getSearchForGameButton().setVisible(true);
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+                //newGame = new JButton(new ImageIcon(this.getClass().getResource("/NewGameButton2.png")));
+                newGame.setIcon(new ImageIcon(this.getClass().getResource("/NewGameButton2.png")));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                newGame.setIcon(new ImageIcon(this.getClass().getResource("/NewGameButton.png")));
+            }
+        });
+        exit.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exit.setIcon(new ImageIcon(this.getClass().getResource("/Exit2.png")));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exit.setIcon(new ImageIcon(this.getClass().getResource("/Exit.png")));
             }
         });
     }
