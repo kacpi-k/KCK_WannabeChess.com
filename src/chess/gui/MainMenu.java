@@ -7,6 +7,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MainMenu {
 
@@ -19,6 +20,9 @@ public class MainMenu {
     public JButton getStartGameButton() {
         return this.startGameButton;
     }
+
+    private final JButton searchForGameButton = new JButton("Wyszukaj grę");
+    public JButton getSearchForGameButton() { return this.searchForGameButton; }
 
     private final JButton backButton = new JButton("Wróć");
     public JButton getBackButton() {
@@ -46,25 +50,29 @@ public class MainMenu {
         this.menuFrame.setSize(OUTER_FRAME_DIMENSION);
 
 
-        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width/2) - 150, (OUTER_FRAME_DIMENSION.height/2) - 300, 300, 50);
+        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 50);
         //this.newGame.setPreferredSize(new Dimension(200,50));
         this.newGame.setBackground(Color.lightGray);
         this.newGame.setFont(new Font("Monaco", Font.BOLD, 16));
         this.newGame.setFocusable(false);
-        this.exit.setBounds((OUTER_FRAME_DIMENSION.width/2) - 125,(OUTER_FRAME_DIMENSION.height/2) - 200,250,50);
+        this.exit.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 125, (OUTER_FRAME_DIMENSION.height / 2) - 200, 250, 50);
         //this.exit.setPreferredSize(new Dimension(40,50));
         this.exit.setFocusable(false);
-        this.startGameButton.setBounds((OUTER_FRAME_DIMENSION.width/2) - 150, (OUTER_FRAME_DIMENSION.height/2) - 300, 300, 50);
+        this.startGameButton.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 50);
         this.startGameButton.setFocusable(false);
         this.startGameButton.setVisible(false);
-        this.backButton.setBounds((OUTER_FRAME_DIMENSION.width/2) - 125, (OUTER_FRAME_DIMENSION.height/2) - 200, 250, 50);
+        this.backButton.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 125, (OUTER_FRAME_DIMENSION.height / 2) - 200, 250, 50);
         this.backButton.setFocusable(false);
         this.backButton.setVisible(false);
+        this.searchForGameButton.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) + 150, 300, 50);
+        this.searchForGameButton.setFocusable(false);
+        this.searchForGameButton.setVisible(false);
 
         this.menuFrame.add(this.newGame);
         this.menuFrame.add(this.exit);
         this.menuFrame.add(this.startGameButton);
         this.menuFrame.add(this.backButton);
+        this.menuFrame.add(this.searchForGameButton);
         this.menuFrame.add(myLabel);
         this.menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.menuFrame.setResizable(false);
@@ -74,17 +82,16 @@ public class MainMenu {
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Board board = Board.createStandardBoard();
-                System.out.println(board);
 
-                //Table table = new Table();
-                //menuFrame.dispose();
+                new Table();
+                menuFrame.dispose();
 
                 getNewGame().setVisible(false);
                 getExit().setVisible(false);
 
                 getStartGameButton().setVisible(true);
                 getBackButton().setVisible(true);
+                getSearchForGameButton().setVisible(true);
 
             }
         });
@@ -100,7 +107,17 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Table table = new Table();
-                menuFrame.dispose();
+                /*try {
+                    Server server = new Server();
+                    server.run();
+                    if(server.connectionEstablished) {
+                        menuFrame.dispose();
+                        Table table = new Table();
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }*/
+
             }
         });
 
@@ -109,13 +126,13 @@ public class MainMenu {
             public void actionPerformed(ActionEvent e) {
                 getStartGameButton().setVisible(false);
                 getBackButton().setVisible(false);
+                getSearchForGameButton().setVisible(false);
 
                 getNewGame().setVisible(true);
                 getExit().setVisible(true);
 
             }
         });
-
     }
 
 
@@ -129,6 +146,11 @@ public class MainMenu {
         final int y = ((dim.height - h) / 2)-12;
         frame.setLocation(x, y);
     }
+
+
+
+
+
 
 
 

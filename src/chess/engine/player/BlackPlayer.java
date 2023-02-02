@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static chess.engine.board.Move.*;
@@ -44,6 +45,11 @@ public class BlackPlayer extends Player {
 
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals, final Collection<Move> opponentsLegals) {
+
+        if(!hasCastleOpportunities()) {
+            return Collections.emptyList();
+        }
+
         final List<Move> kingCastles = new ArrayList<>();
         if(this.playerKing.isFirstMove() && !this.isInCheck()) {
             //Black's king side castle

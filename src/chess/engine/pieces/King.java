@@ -57,12 +57,12 @@ public class King extends Piece{
         final List<Move> legalMoves = new ArrayList<>();
 
         for(final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE) {
-            final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
 
             if(isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||
                     isEighthColumnExclusion(this.piecePosition, currentCandidateOffset)) {
                 continue;
             }
+            final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
 
             if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
 
@@ -89,6 +89,11 @@ public class King extends Piece{
         return PieceType.KING.toString();
     }
 
+    @Override
+    public int hashCode() {
+        return (31* super.hashCode()) + (isCastled ? 1 : 0);
+    }
+
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -9 || candidateOffset == -1 ||
                 candidateOffset == 7);
@@ -97,4 +102,7 @@ public class King extends Piece{
         return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 1 ||
                 candidateOffset == 9);
     }
+
+
+
 }

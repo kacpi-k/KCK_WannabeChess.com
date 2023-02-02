@@ -79,4 +79,8 @@ public class BoardUtils {
         return ALGEBRAIC_NOTATION.get(coordinate);
     }
 
+    public static boolean isEndGame(final Board board) {
+        return board.currentPlayer().isInCheckMate() || board.currentPlayer().isInStaleMate();
+    }
+
 }

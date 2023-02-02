@@ -1,34 +1,24 @@
-//package chess.Network;
-//
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.net.ServerSocket;
-//import java.net.Socket;
-//
-//public class Server{
-//    public void run() throws IOException {
-//        ServerSocket server = new ServerSocket("7");
-//
-//        Socket client = server.accept();
-//
-//        InputStream in = client.getInputStream();
-//        OutputStream out = client.getOutputStream();
-//
-//        while(true) {
-//            //odbierz dane
-//            int data = in.read();
-//
-//            //przetworz dane
-//
-//            //wyslij do klienta
-//            out.write(data);
-//        }
-//
-//        //zamykanie połączenia
-//        in.close();
-//        out.close();
-//        client.close();
-//        server.close();
-//    }
-//}
+package chess.Network;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Server {
+
+    public boolean connectionEstablished = false;
+        ServerSocket server = new ServerSocket(8);
+    public Server() throws IOException {
+
+    }
+        public void run() throws IOException {
+                System.out.println("Czekam na klienta");
+                Socket client = server.accept();
+                connectionEstablished = true;
+                System.out.println("Połączono z: " + client.getInetAddress().getHostName());
+                System.out.println("Klient podłączony");
+            }
+
+
+}
+

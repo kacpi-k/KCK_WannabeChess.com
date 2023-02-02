@@ -1,27 +1,19 @@
-//package chess.Network;
-//
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.net.Socket;
-//
-//public class Client {
-//
-//    public void run() throws IOException {
-//        Socket server = new Socket("192.168.1.35", 7);
-//
-//        InputStream in = server.getInputStream();
-//        OutputStream out = server.getOutputStream();
-//
-//        while(true) {
-//            //wyslij dane do serwera
-//            out.write(data);
-//
-//            //odbierz dane od serwera
-//            int data = in.read();
-//
-//            //przetworz dane
-//        }
-//    }
-//}
+package chess.Network;
+
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client {
+        public boolean connectionEstablished = false;
+
+        public void run() throws IOException {
+                System.out.println("Podłączam się do serwera");
+                Socket client = new Socket("localhost", 8);
+                connectionEstablished = true;
+                System.out.println("Sukces");
+
+        }
+
+}
+
 

@@ -46,7 +46,9 @@ public class WhitePlayer extends Player {
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals, final Collection<Move> opponentsLegals) {
 
-
+        if(!hasCastleOpportunities()) {
+            return Collections.emptyList();
+        }
 
         final List<Move> kingCastles = new ArrayList<>();
         if(this.playerKing.isFirstMove() && !this.isInCheck()) {
