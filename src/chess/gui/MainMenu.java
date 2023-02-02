@@ -53,7 +53,7 @@ public class MainMenu {
         this.menuFrame.setSize(OUTER_FRAME_DIMENSION);
 
         this.newGame = new JButton( new ImageIcon(getClass().getResource("/NewGameButton.png")));
-        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 300, 75);
+        this.newGame.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 300, 400, 160);
 
         //this.newGame.setPreferredSize(new Dimension(200,50));
         this.newGame.setBackground(Color.lightGray);
@@ -63,7 +63,7 @@ public class MainMenu {
         this.newGame.setBorder(emptyBorder);
         this.newGame.setOpaque(false);
         this.exit = new JButton(new ImageIcon(getClass().getResource("/Exit.png")));
-        this.exit.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 125, (OUTER_FRAME_DIMENSION.height / 2) - 200, 250, 75);
+        this.exit.setBounds((OUTER_FRAME_DIMENSION.width / 2) - 150, (OUTER_FRAME_DIMENSION.height / 2) - 100, 400, 160);
         this.exit.setBackground(Color.RED);
         //this.exit.setPreferredSize(new Dimension(40,50));
         this.exit.setFocusable(false);
@@ -108,12 +108,12 @@ public class MainMenu {
             }
         });*/
 
-        exit.addActionListener(new ActionListener() {
+        /*exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
-        });
+        });*/
 
         startGameButton.addActionListener(new ActionListener() {
             @Override
@@ -175,6 +175,7 @@ public class MainMenu {
 
                 //newGame = new JButton(new ImageIcon(this.getClass().getResource("/NewGameButton2.png")));
                 newGame.setIcon(new ImageIcon(this.getClass().getResource("/NewGameButton2.png")));
+                newGame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
@@ -185,7 +186,7 @@ public class MainMenu {
         exit.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                System.exit(0);
             }
 
             @Override
@@ -201,11 +202,44 @@ public class MainMenu {
             @Override
             public void mouseEntered(MouseEvent e) {
                 exit.setIcon(new ImageIcon(this.getClass().getResource("/Exit2.png")));
+                exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 exit.setIcon(new ImageIcon(this.getClass().getResource("/Exit.png")));
+            }
+        });
+        Authors.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Authors.setIcon(new ImageIcon(getClass().getResource("/Label2.png")));
+                Authors.setSize(new Dimension(490,190));
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Authors.setIcon(new ImageIcon(getClass().getResource("/Label.png")));
+                Authors.setSize(new Dimension(240,110));
+
             }
         });
     }
