@@ -7,6 +7,7 @@ import chess.engine.board.Tile;
 import chess.engine.pieces.Piece;
 import chess.engine.player.MoveTransition;
 import com.google.common.collect.Lists;
+import com.sun.tools.javac.Main;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,12 +71,12 @@ public class Table
         return BOARD_PANEL_DIMENSION;
     }
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension (20,20);
-    private static String defaultPieceImagesPath = "graphics/pieces/";
+    private final static String defaultPieceImagesPath = "graphics/pieces/";
 
-    private final Color lightTileColor = Color.decode("#EEEED2");
-    private final Color darkTileColor = Color.decode("#779556");
-    private final Color lightHiglight = Color.decode("#F6F669");
-    private final Color darkHighlight = Color.decode("#BACA2B");
+    private final Color lightTileColor = MainMenu.getLightTileColor();
+    private final Color darkTileColor = MainMenu.getDarkTileColor();
+    private final Color lightHighlight = MainMenu.getLightHighlight();
+    private final Color darkHighlight = MainMenu.getDarkHighlight();
 
 
 
@@ -97,8 +98,8 @@ public class Table
         this.highlightLegalMoves = true;
         this.serverButton.setBounds(1100, 500, 50, 50);
         this.clientButton.setBounds(1100, 600, 50, 50);
-        this.gameFrame.add(this.serverButton);
-        this.gameFrame.add(this.clientButton);
+        //this.gameFrame.add(this.serverButton);
+        //this.gameFrame.add(this.clientButton);
         this.gameFrame.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.chessBoardPanel, BorderLayout.CENTER);
         this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
@@ -326,6 +327,8 @@ public class Table
                         SwingUtilities.invokeLater(new Runnable(){
                             @Override
                             public void run(){
+
+
                                 gameHistoryPanel.redo(chessBoard, moveLog);
                                 takenPiecesPanel.redo(moveLog);
                                 boardPanel.drawBoard(chessBoard);
@@ -394,6 +397,7 @@ public class Table
             if(board.currentPlayer().isInCheckMate()) {
                 if(board.currentPlayer().getPlayerKing().getPiecePosition() == this.tileId) {
                     setBackground(Color.red);
+                    JOptionPane.showMessageDialog(gameFrame, "Koniec gry!", "Notification", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
@@ -405,11 +409,11 @@ public class Table
                 if(BoardUtils.EIGHTH_ROW[this.tileId] ||
                         BoardUtils.SIXTH_ROW[this.tileId] ||
                         BoardUtils.FOURTH_ROW[this.tileId] ||
-                        BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHiglight : darkHighlight);
+                        BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHighlight : darkHighlight);
                 }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
                         BoardUtils.FIFTH_ROW[this.tileId] ||
                         BoardUtils.THIRD_ROW[this.tileId] ||
-                        BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHiglight : darkHighlight);
+                        BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHighlight : darkHighlight);
 
                 }
 
@@ -424,11 +428,11 @@ public class Table
                         try {if(BoardUtils.EIGHTH_ROW[this.tileId] ||
                                 BoardUtils.SIXTH_ROW[this.tileId] ||
                                 BoardUtils.FOURTH_ROW[this.tileId] ||
-                                BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHiglight : darkHighlight);
+                                BoardUtils.SECOND_ROW[this.tileId]) {setBackground(this.tileId % 2 == 0 ? lightHighlight : darkHighlight);
                         }   else if(BoardUtils.SEVENTH_ROW[this.tileId] ||
                                 BoardUtils.FIFTH_ROW[this.tileId] ||
                                 BoardUtils.THIRD_ROW[this.tileId] ||
-                                BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHiglight : darkHighlight);
+                                BoardUtils.FIRST_ROW[this.tileId]) {setBackground(this.tileId % 2 != 0 ? lightHighlight : darkHighlight);
 
                         }
                             //add(new JLabel(new ImageIcon(ImageIO.read(new File("misc/green_dot.png")))));

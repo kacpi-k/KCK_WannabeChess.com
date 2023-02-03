@@ -46,6 +46,27 @@ public class MainMenu {
     private JButton ThemePurple;
     private JButton ThemeBrown;
     private JLabel ThemeSelect = new JLabel("a");
+
+    private static Color lightTileColor = null;
+    public static Color getLightTileColor() {
+        return lightTileColor;
+    }
+    private static Color darkTileColor = null;
+    public static Color getDarkTileColor() {
+        return darkTileColor;
+    }
+
+    private static Color lightHighlight = Color.decode("#F6F669");
+    public static Color getLightHighlight() {
+        return lightHighlight;
+    }
+    private static Color darkHighlight = Color.decode("#BACA2B");
+    public static Color getDarkHighlight() {
+        return darkHighlight;
+    }
+
+
+
     public MainMenu() {
 
         this.BackgroundImage = new ImageIcon(this.getClass().getResource("/chesswallpaper.png"));
@@ -338,7 +359,19 @@ public class MainMenu {
         ThemeGreen.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                lightTileColor = Color.decode("#EBECD0");
+                darkTileColor = Color.decode("#779556");
+                lightHighlight = Color.decode("#F6F669");
+                darkHighlight = Color.decode("#BACA2B");
 
+                ThemeGreen.setVisible(false);
+                ThemePurple.setVisible(false);
+                ThemeBrown.setVisible(false);
+                ThemeSelect.setVisible(false);
+                newGame.setVisible(true);
+                options.setVisible(true);
+                exit.setVisible(true);
+                Authors.setVisible(true);
             }
 
             @Override
@@ -364,7 +397,19 @@ public class MainMenu {
         ThemePurple.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                lightTileColor = Color.decode("#EBECD0");
+                darkTileColor = Color.decode("#985291");
+                lightHighlight = Color.decode("#E5C8F2");
+                darkHighlight = Color.decode("#D59CEF");
 
+                ThemeGreen.setVisible(false);
+                ThemePurple.setVisible(false);
+                ThemeBrown.setVisible(false);
+                ThemeSelect.setVisible(false);
+                newGame.setVisible(true);
+                options.setVisible(true);
+                exit.setVisible(true);
+                Authors.setVisible(true);
             }
 
             @Override
@@ -390,7 +435,19 @@ public class MainMenu {
         ThemeBrown.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                lightTileColor = Color.decode("#EBECD0");
+                darkTileColor = Color.decode("#986B52");
+                lightHighlight = Color.decode("#F6C5A8");
+                darkHighlight = Color.decode("#C9A67E");
 
+                ThemeGreen.setVisible(false);
+                ThemePurple.setVisible(false);
+                ThemeBrown.setVisible(false);
+                ThemeSelect.setVisible(false);
+                newGame.setVisible(true);
+                options.setVisible(true);
+                exit.setVisible(true);
+                Authors.setVisible(true);
             }
 
             @Override
@@ -413,6 +470,7 @@ public class MainMenu {
                 ThemeBrown.setIcon(new ImageIcon(getClass().getResource("/ThemeBrown.png")));
             }
         });
+
     }
 
 
