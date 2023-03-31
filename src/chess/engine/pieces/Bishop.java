@@ -21,9 +21,9 @@ public class Bishop extends Piece {
     public Bishop(int piecePosition, final Alliance pieceAlliance) {
         super(PieceType.BISHOP, piecePosition, pieceAlliance, true);
     }
-    public Bishop(int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+/*    public Bishop(int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.BISHOP, piecePosition, pieceAlliance, isFirstMove);
-    }
+    }*/
 
 
     @Override
@@ -72,6 +72,10 @@ public class Bishop extends Piece {
         return PieceType.BISHOP.toString();
     }
 
+
+
+    // Wyjątki //
+
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.FIRST_COLUMN[currentPosition] && ((candidateOffset == -9) || (candidateOffset == 7));
     }
@@ -79,5 +83,4 @@ public class Bishop extends Piece {
     private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.EIGHTH_COLUMN[currentPosition] && ((candidateOffset == -7) || (candidateOffset == 9));
     }
-
 }

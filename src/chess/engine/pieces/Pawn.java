@@ -20,9 +20,10 @@ public class Pawn extends Piece{
     public Pawn(final int piecePosition, final Alliance pieceAlliance) {
         super(PieceType.PAWN, piecePosition, pieceAlliance, true);
     }
-    public Pawn(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+/*    public Pawn(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.PAWN, piecePosition, pieceAlliance, isFirstMove);
-    }
+    }*/
+
 
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {

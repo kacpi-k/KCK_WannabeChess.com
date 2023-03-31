@@ -21,9 +21,9 @@ public class Rook extends Piece{
     public Rook(final int piecePosition, final Alliance pieceAlliance) {
         super(PieceType.ROOK, piecePosition, pieceAlliance, true );
     }
-    public Rook(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove){
+/*    public Rook(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove){
         super(PieceType.ROOK, piecePosition, pieceAlliance, isFirstMove);
-    }
+    }*/
 
     @Override
     public Rook movePiece(final Move move) {
@@ -63,6 +63,9 @@ public class Rook extends Piece{
 
         return ImmutableList.copyOf(legalMoves);
     }
+
+
+    // Wyjątki
 
     @Override
     public String toString() {

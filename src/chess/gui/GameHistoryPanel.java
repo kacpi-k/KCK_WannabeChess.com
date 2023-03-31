@@ -17,27 +17,30 @@ public class GameHistoryPanel extends JPanel {
     GameHistoryPanel() {
         this.setLayout(new BorderLayout());
         this.model = new DataModel();
+
         final JTable table = new JTable(model);
         table.setRowHeight(15);
+
         this.scrollPane = new JScrollPane(table);
         scrollPane.setColumnHeaderView(table.getTableHeader());
         scrollPane.setPreferredSize(HISTORY_PANEL_DIMENSION);
+
         this.add(scrollPane, BorderLayout.CENTER);
         this.setVisible(true);
     }
-    void redo(final Board board, final Table.MoveLog moveHistory){
+    void redo(final Board board, final GameWindow.MoveLog moveHistory) {
         int currentRow = 0;
         this.model.clear();
         for(final Move move : moveHistory.getMoves()) {
              final String moveText = move.toString();
              if(move.getMovedPiece().getPieceAlliance().isWhite()) {
                  this.model.setValueAt(moveText, currentRow, 0);
-             }else if (move.getMovedPiece().getPieceAlliance().isBlack()){
+             } else if (move.getMovedPiece().getPieceAlliance().isBlack()){
                  this.model.setValueAt(moveText, currentRow, 1);
                  currentRow++;
              }
         }
-        if(moveHistory.getMoves().size() > 0){
+        if(moveHistory.getMoves().size() > 0) {
             final Move lastMove = moveHistory.getMoves().get(moveHistory.size() - 1);
             final String moveText = lastMove.toString();
             if(lastMove.getMovedPiece().getPieceAlliance().isWhite()){
@@ -50,10 +53,10 @@ public class GameHistoryPanel extends JPanel {
         vertical.setValue(vertical.getMaximum());
     }
 
-  private String calculateCheckAndCheckMateHash(final Board board){
+  private String calculateCheckAndCheckMateHash(final Board board) {
         if(board.currentPlayer().isInCheckMate()){
             return "#";
-        }else if(board.currentPlayer().isInCheck()){
+        } else if(board.currentPlayer().isInCheck()){
             return "+";
         }
         return "";
@@ -72,7 +75,7 @@ public class GameHistoryPanel extends JPanel {
         }
 
         @Override
-        public int getRowCount(){
+        public int getRowCount() {
             if (this.values == null){
                 return 0;
             }
@@ -89,7 +92,7 @@ public class GameHistoryPanel extends JPanel {
             final Row currentRow = this.values.get(row);
             if(column == 0) {
                 return currentRow.getWhiteMove();
-            }else if ( column == 1) {
+            } else if ( column == 1) {
                 return currentRow.getBlackMove();
             }
             return null;
@@ -102,13 +105,13 @@ public class GameHistoryPanel extends JPanel {
             if(this.values.size() <= row) {
                 currentRow = new Row();
                 this.values.add(currentRow);
-            }else{
+            } else{
                 currentRow = this.values.get(row);
             }
             if(column == 0){
                 currentRow.setWhiteMove((String)aValue);
                 fireTableRowsInserted(row, row);
-            }else if (column == 1){
+            } else if (column == 1){
                 currentRow.setBlackMove((String)aValue);
                 fireTableCellUpdated(row, column);
             }

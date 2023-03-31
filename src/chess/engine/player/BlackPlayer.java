@@ -46,13 +46,13 @@ public class BlackPlayer extends Player {
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals, final Collection<Move> opponentsLegals) {
 
-        if(!hasCastleOpportunities()) {
+        if(hasCastleOpportunities()) {
             return Collections.emptyList();
         }
 
         final List<Move> kingCastles = new ArrayList<>();
         if(this.playerKing.isFirstMove() && !this.isInCheck()) {
-            //Black's king side castle
+            // Roszada czarnych po stronie króla
             if(!this.board.getTile(5).isTileOccupied() && !this.board.getTile(6).isTileOccupied()) {
                 final Tile rookTile = this.board.getTile(7);
                 if(rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
@@ -65,7 +65,7 @@ public class BlackPlayer extends Player {
                     }
                 }
             }
-            //Black's queen side castle
+            // Roszada czarnych po stronie hetmana
             if(!this.board.getTile(3).isTileOccupied() &&
                     !this.board.getTile(2).isTileOccupied() &&
                     !this.board.getTile(1).isTileOccupied()) {
@@ -88,5 +88,4 @@ public class BlackPlayer extends Player {
 
         return ImmutableList.copyOf(kingCastles);
     }
-
 }

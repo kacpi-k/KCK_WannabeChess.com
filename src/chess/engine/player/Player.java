@@ -3,6 +3,8 @@ package chess.engine.player;
 import chess.engine.Alliance;
 import chess.engine.board.Board;
 import chess.engine.board.Move;
+import chess.engine.board.MoveStatus;
+import chess.engine.board.MoveTransition;
 import chess.engine.pieces.King;
 import chess.engine.pieces.Piece;
 import com.google.common.collect.ImmutableList;
@@ -36,6 +38,7 @@ public abstract class Player {
         return this.legalMoves;
     }
 
+    // Ruchy atakujące
     protected static Collection<Move> calculateAttacksOnTile(int piecePosition, Collection<Move> moves) {
         final List<Move> attackMoves = new ArrayList<>();
 
@@ -53,7 +56,7 @@ public abstract class Player {
                 return (King) piece;
             }
         }
-        throw new RuntimeException("Should not reach here! Not a valid board");
+        throw new RuntimeException("Error! Niepoprawna konfiguracja szachownicy!");
     }
 
     public boolean isMoveLegal(final Move move) {
@@ -65,24 +68,11 @@ public abstract class Player {
     }
 
     public boolean isInCheckMate() {
-        return this.isInCheck && !hasEscapeMoves();
+        return this.isInCheck && hasEscapeMoves();
     }
 
     public boolean isInStaleMate() {
-        return !this.isInCheck && !hasEscapeMoves();
-    }
-
-    //TODO implement these methods below!!!
-    public boolean isCastled() {
-        return this.playerKing.isCastled();
-    }
-
-    public boolean isKingSideCastleCapable() {
-        return this.playerKing.isKingSideCastleCapable();
-    }
-
-    public boolean isQueenSideCastleCapable() {
-        return this.playerKing.isQueenSideCastleCapable();
+        return !this.isInCheck && hasEscapeMoves();
     }
 
 
@@ -90,10 +80,10 @@ public abstract class Player {
         for(final Move move : legalMoves) {
             final MoveTransition transition = makeMove(move);
             if(transition.getMoveStatus().isDone()) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 
@@ -120,6 +110,6 @@ public abstract class Player {
     protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentsLegals);
 
     protected boolean hasCastleOpportunities() {
-        return !this.isInCheck && !this.playerKing.isCastled() && (this.playerKing.isKingSideCastleCapable() || this.playerKing.isQueenSideCastleCapable());
+        return this.isInCheck || this.playerKing.isCastled() || (!this.playerKing.isKingSideCastleCapable() && !this.playerKing.isQueenSideCastleCapable());
     }
 }

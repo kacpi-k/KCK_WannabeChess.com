@@ -67,6 +67,9 @@ public class Queen extends Piece {
         return PieceType.QUEEN.toString();
     }
 
+
+    // Wyjątki
+
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.FIRST_COLUMN[currentPosition] && ((candidateOffset == -9) || (candidateOffset == -1) || (candidateOffset == 7));
     }

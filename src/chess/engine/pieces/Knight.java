@@ -21,9 +21,9 @@ public class Knight extends Piece{
     public Knight(final int piecePosition, final Alliance pieceAlliance) {
         super(PieceType.KNIGHT, piecePosition, pieceAlliance, true);
     }
-    public Knight(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
+/*    public Knight(final int piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.KNIGHT, piecePosition, pieceAlliance, isFirstMove);
-    }
+    }*/
     @Override
     public Knight movePiece(final Move move) {
         return new Knight(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
@@ -66,6 +66,9 @@ public class Knight extends Piece{
     public String toString() {
         return PieceType.KNIGHT.toString();
     }
+
+
+    // Wyjątki
 
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
        return BoardUtils.FIRST_COLUMN[currentPosition] && ((candidateOffset == -17) || (candidateOffset== -10) || (candidateOffset == 6) || (candidateOffset == 15));
