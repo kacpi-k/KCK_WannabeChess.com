@@ -1,0 +1,9 @@
+W BoardUtils napisane jest Row, ale nie wiem czy nie powinno być Rank(kwestia nazewnictwa po angielsku),
+pozatym nie wiem czy nie powinno być na odwrót, w sensie czy pierwszy rząd nie powinien być numerowany
+jako ósmy //Zrobione
+
+W klasie MoveStatus musisz ustawić metodę isDone() i jej nadpisania na public //Zrobione
+
+Klasa MoveTransition trzeba dodać metodę getTransitionBoard //Zrobione
+
+Czy w klasie Tile potrzebna metoda getTileCoordinate //Zrobione
